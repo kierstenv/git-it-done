@@ -54,7 +54,7 @@ const displayRepos = (repos, searchTerm) => {
     
     repoEl.appendChild(titleEl);
     
-    const statusEl = document.createElement("span");
+    const statusEl = document.createElement("i");
     statusEl.classList = "flex-row align-center";
     
     if (repo.open_issues_count > 1) {
