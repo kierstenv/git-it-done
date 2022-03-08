@@ -7,12 +7,17 @@ const getRepoName = () => {
   const queryString = document.location.search;
   const repoName = queryString.split("=")[1];
 
-  repoNameEl.textContent = repoName;
-  getRepoIssues(repoName);
+  if (repoName) {
+    repoNameEl.textContent = repoName;
+    
+    getRepoIssues(repoName);
+  } else {
+    document.location.replace("./index.html");
+  }
 };
 
-const getRepoIssues = (repoName) => {
-  const apiUrl = "https://api.github.com/repos/" + repoName + "/issues?direction=asc";
+const getRepoIssues = (repo) => {
+  const apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
   
   fetch(apiUrl).then((response) => {
     if (response.ok) {
@@ -20,11 +25,11 @@ const getRepoIssues = (repoName) => {
         displayIssues(data);
 
         if (response.headers.get("Link")) {
-          displayWarning(repoName);
+          displayWarning(repo);
         }
       });
     } else {
-      alert("There was a problem with your request!");
+      document.location.replace("./index.html");
     }
   });
 };
@@ -60,12 +65,12 @@ const displayIssues = (issues) => {
   });
 };
 
-const displayWarning = (repoName) => {
+const displayWarning = (repo) => {
   limitWarningEl.textContent = "Want to see the full list? ";
 
   const linkEl = document.createElement("a");
   linkEl.textContent = "View More Issues on GitHub.com"
-  linkEl.setAttribute("href", "https://github.com/" + repoName + "/issues");
+  linkEl.setAttribute("href", "https://github.com/" + repo + "/issues");
   linkEl.setAttribute("target", "_blank");
 
   limitWarningEl.appendChild(linkEl);
