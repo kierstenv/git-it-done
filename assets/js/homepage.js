@@ -46,15 +46,16 @@ const displayRepos = (repos, searchTerm) => {
   repos.forEach(repo => {
     const repoName = repo.owner.login + "/" + repo.name;
     
-    const repoEl = document.createElement("div");
+    const repoEl = document.createElement("a");
     repoEl.classList = "list-item flex-row justify-space-between align-center";
+    repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
     
     const titleEl = document.createElement("span");
     titleEl.textContent = repoName;
     
     repoEl.appendChild(titleEl);
     
-    const statusEl = document.createElement("span");
+    const statusEl = document.createElement("i");
     statusEl.classList = "flex-row align-center";
     
     if (repo.open_issues_count > 1) {
