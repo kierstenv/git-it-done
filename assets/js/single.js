@@ -1,4 +1,3 @@
-
 const repoNameEl = document.querySelector("#repo-name");
 const issueContainerEl = document.querySelector("#issues-container");
 const limitWarningEl = document.querySelector("#limit-warning");
